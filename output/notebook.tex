@@ -1,0 +1,2201 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{20190618 KSA Module 2-8}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import Library}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}
+        \PY{k+kn}{import} \PY{n+nn}{bokeh}
+        
+        \PY{c+c1}{\PYZsh{} 한글 폰트 출력}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{font\PYZus{}manager}\PY{p}{,} \PY{n}{rc}
+        \PY{n}{font\PYZus{}name} \PY{o}{=} \PY{n}{font\PYZus{}manager}\PY{o}{.}\PY{n}{FontProperties}\PY{p}{(}\PY{n}{fname}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c:/Windows/Fonts/malgun.ttf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}name}\PY{p}{(}\PY{p}{)}
+        \PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{font\PYZus{}name}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Generate Markdown Table}
+        \PY{k+kn}{from} \PY{n+nn}{generate\PYZus{}markdown\PYZus{}table} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \hypertarget{chapter-4.-uxc790uxb8ccuxc758-uxc2dcuxac01uxd654}{%
+\section{Chapter 4. 자료의
+시각화}\label{chapter-4.-uxc790uxb8ccuxc758-uxc2dcuxac01uxd654}}
+
+    \hypertarget{matplotlib}{%
+\subsection{Matplotlib}\label{matplotlib}}
+
+\begin{quote}
+\hypertarget{matplotlib-1}{%
+\subsubsection{Matplotlib}\label{matplotlib-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  파이썬에서 자료를 차트나 플롯(Plot)으로 그려주는 라이브러리 패키지
+\item
+  2002년 John Hunter는 파이썬에서 MATLAB과 유사한 인터페이스를
+  지원하고자 matplotlib 프로젝트를 시작
+\item
+  이후 Ipython의 Pernando Perz 등 수많은 개발자와 과학계산 컴퓨팅을 위한
+  다양한 기능을 겸비한 환경을 구축
+\item
+  가장 많이 사용되는 데이터 시각화(Data Visualization) 패키지
+\item
+  라인 플롯, 바 차트, 파이차트, 히스토그램, Boxplot, Scatter plot 등을
+  비롯하여 다양한 차트와 플롯 스타일을 지원
+\item
+  Matplotlib : http://matplotlib.org/gallery.html
+\item
+  matplotlib API(Application Program Interface) 함수는 matplotlib.pyplot
+  모듈에 포함
+\end{itemize}
+\end{quote}
+
+\begin{quote}
+\hypertarget{uxae30uxbcf8-uxadf8uxb798uxd504-uxc601uxc5ed}{%
+\subsubsection{기본 그래프
+영역}\label{uxae30uxbcf8-uxadf8uxb798uxd504-uxc601uxc5ed}}
+
+\begin{itemize}
+\tightlist
+\item
+  Figure : 그림이 그려지는 도화지
+\item
+  우선 Figure를 그린 후, plt.subplots로 도화지를 분할해 각 부분에
+  그래프를 그리는 방식으로 진행
+\item
+  plt.figure를 명시적으로 표현해주는 것이 좋으나, plot 함수에서 자동으로
+  figure를 생성
+\item
+  현재 figure에서 접근해야 할 필요성이 있다면, plt.gca()로 접근
+\item
+  size를 조절 fig.set\_size\_inches(18.5, 10.5) plt.figure(figsize=(10,
+  5)) plt.rcParams{[}`figure.figsize'{]} = (10, 7)
+\item
+  \texttt{Axes} : 그래프가 그려지는 공간
+\item
+  \texttt{Axis} : 그래프의 축
+\end{itemize}
+\end{quote}
+
+\begin{itemize}
+\tightlist
+\item
+  참고하면 좋을 사이트 및 출처
+
+  \begin{itemize}
+  \tightlist
+  \item
+    https://zzsza.github.io/development/2018/08/24/data-visualization-in-python/
+  \item
+    https://wikidocs.net/14604
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} matplot 작성하기}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{5}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 산점도, marker 출력}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 출력}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{uxae30uxbcf8-uxadf8uxb798uxd504-uxad6cuxc131uxc694uxc18c}{%
+\subsubsection{기본 그래프
+구성요소}\label{uxae30uxbcf8-uxadf8uxb798uxd504-uxad6cuxc131uxc694uxc18c}}
+
+\begin{itemize}
+\tightlist
+\item
+  제목과 축 레이블
+\item
+  플롯에 X, Y 축 레이블이나 제목을 추가 title() : 차트의 제목 xlabel() :
+  차트의 x-축 제목 ylabel() : 차트의 y-축 제목
+\item
+  옵션
+\item
+  \texttt{label} : 제목 텍스트
+\item
+  \texttt{fontdict} : \{`fontsize':rcParams{[}`axes.titlesize'{]},
+  `fontweight':rcParams{[}`axes.titleweight'{]},
+  `verticalalignment':`baseline', `horizontalalignment':loc\}
+\item
+  \texttt{loc} : title 옵션으로 수평 정렬 (기본값 : ``center'')
+  `center', `left', `right'
+\item
+  \texttt{labelpad} : xlabel과 ylabel 옵션으로 축과 축 제목 사이의 간격
+  (기본값 : None)
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{p}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{산점도 제목}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} color=\PYZsq{}w\PYZsq{} kargs를 넣으면 폰트 색깔을 바꿀 수 있다.}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{p}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{산점도 제목}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    범례(legend)
+
+그래프에 여러 집단 별로 그래프를 추가하는 경우에 각 집단의 구분을 위한
+점, 선, 막대 등의 색이나 모양을 구분
+
+각 집단 별 점, 선, 막대 등을 구분하기 위한 설명을 추가
+
+옵션
+
+labels : 범례로 삽입할 제목을 순서대로 리스트로 입력
+
+loc : 범례 출력 위치 (default : `best')
+
+문자
+
+코드
+
+문자
+
+코드
+
+`best'
+
+0
+
+`center left'
+
+6
+
+`upper right'
+
+1
+
+'center right
+
+7
+
+`upper left'
+
+2
+
+`lower center'
+
+8
+
+`lower left'
+
+3
+
+`upper center'
+
+9
+
+`lower right'
+
+4
+
+`center'
+
+10
+
+`right'
+
+5
+
+축크기
+
+\begin{verbatim}
+</ul>
+<ul>
+    <li> 보조 눈금선
+        <ul>
+            <li><s><b>twinx</b>로도 생성 가능</s> 이건 보조 축 설정</li>
+            <pre><code>plt.minorticks_on() : 그래프에 보조 눈금선 표시</pre></code>
+        </ul>
+</ul>
+<ul>
+    <li> 격자
+        <ul>
+            <pre><code>grid() : 그래프에 주 눈금선과 보조눈금선의 격자 표시</pre></code>
+            <li> 옵션
+                <ul>
+                    <li> <code>b</code> = False
+                    <li> <code>which</code> : 주 눈금선과 보조 눈금선의 격자 (기본값 : 'major')
+                        <ul><li>'major', 'minor', 'both'</ul>
+                    <li> <code>axis</code> : 격자를 표시할 축 (기본값 : 'both')
+                        <ul><li>'both', 'x', 'y'</ul>
+                </ul>
+        </ul>
+</ul>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n}{y1} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{5}
+        \PY{n}{y2} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{5}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}y1, x\PYZhy{}y2 산점도}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{남자}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{여자}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)} \PY{c+c1}{\PYZsh{} xlim, ylim에서 설정 가능}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{minorticks\PYZus{}on}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{y1} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{+} \PY{l+m+mf}{2.7} \PY{o}{*} \PY{n}{x} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{5}
+        \PY{n}{y2} \PY{o}{=} \PY{l+m+mf}{5.5} \PY{o}{+} \PY{l+m+mf}{2.7} \PY{o}{*} \PY{n}{x} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{5}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gp\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rp\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{산점도}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontdict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZhy{}축 이름표}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{labelpad} \PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZhy{}축 이름표}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{그룹1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{그룹2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{ymin} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ymax} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{minorticks\PYZus{}on}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{b}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} which=\PYZsq{}minor\PYZsq{} 옵션 차이}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        
+        \PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar chart edgecolor parameter}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{headings} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{문자}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{색 이름}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{2}
+        
+        \PY{n}{data} \PY{o}{=} \PY{p}{[}
+            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{magenta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{p}{]}
+        
+        \PY{n}{fields} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+        
+        \PY{n}{align} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n}{table}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{fields}\PY{p}{,} \PY{n}{headings}\PY{p}{,} \PY{n}{align}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+bar chart edgecolor parameter
+
+| 문자 | 색 이름  | 문자 |  색 이름   |
+| :- | :---: | :- | :-----: |
+| b  | blue  | m  | magenta |
+| g  | green | y  | yellow  |
+| r  |  red  | k  |  black  |
+| c  | cyan  | w  |  white  |
+
+    \end{Verbatim}
+
+    막대 그래프 (Bar Chart)
+
+\begin{verbatim}
+<ul>
+        <li> 범주(Category)로 구분되는 데이터를 이용하여 범주별로 막대를 작성
+        <li> 각 집단 별 점, 선, 막대 등을 구분하기 위한 설명을 추가
+            <pre><code>bar() : 막대 그래프 작성</pre></code>
+        <li> 옵션
+            <ul>
+                <li> <code>x</code> : 범주
+                <li> <code>height</code> : 막대 높이의 값
+                <li> <code>width</code> : 막대의 넓이 (기본값 : .8)
+                <li> <code>height</code> : 막대 높이의 값
+                <li> <code>color</code> : 막대 채우기 색
+                <li> <code>edgecolor</code> : 막대 외곽선 색
+                                    
+\end{verbatim}
+
+\begin{longtable}[]{@{}lclc@{}}
+\toprule
+문자 & 색 이름 & 문자 & 색 이름\tabularnewline
+\midrule
+\endhead
+`b' & blue & `m' & magenta\tabularnewline
+`g' & green & `y' & yellow\tabularnewline
+`r' & red & `k' & black\tabularnewline
+`c' & cyan & `w' & white\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/Python\PYZus{}Data/ch02\PYZus{}data/APTData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}       id Area UseDistrict Option     FAR       Price
+        0  apt01  도심권  제2종 일반주거지역   풀옵션형  132.72  515.051949
+        1  apt02  도심권  제2종 일반주거지역   풀옵션형  184.99  499.500499
+        2  apt03  도심권        상업지역    기본형  308.81  364.319535
+        3  apt04  도심권        상업지역   풀옵션형  493.08  410.945530
+        4  apt05  도심권       준주거지역    기본형  349.65  616.975986
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{AreaTbl} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{AreaTbl}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{AreaTbl}\PY{p}{,}
+               \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{지역}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+동북권    140
+동남권     92
+서북권     81
+서남권     76
+도심권     11
+Name: Area, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{uxc6d0-uxcc28uxd2b8-pie-chart}{%
+\subsubsection{원 차트 (Pie
+Chart)}\label{uxc6d0-uxcc28uxd2b8-pie-chart}}
+
+\begin{quote}
+\begin{itemize}
+\tightlist
+\item
+  범주(category)로 구분되는 데이터를 이용하여 범주별로 원조각을 작성
+  pie() : 원 그래프 작성
+\item
+  옵션
+\item
+  \texttt{x} : 원조각의 값
+\item
+  \texttt{explode} : 특정 조각 빼기 (기본값 : None)
+\item
+  \texttt{labels} : 각 조각별 이름 (기본값 : None)
+\item
+  \texttt{colors} : 각 조각의 색 (기본값 : None)
+\item
+  색깔의 약자나 이름
+\item
+  \texttt{autopct} : 퍼센트 표기 (기본값 : None)
+\item
+  ``\%format\%pct'' 형식으로 입력
+\item
+  \texttt{shadow} : 그림자 효과로 입체값 주기 (기본값 : None)
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{AreaTbl}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{AreaTbl}\PY{p}{,} \PY{n}{explode}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+                 \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{autopct}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}5.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+동북권    140
+동남권     92
+서북권     81
+서남권     76
+도심권     11
+Name: Area, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{uxc0c1uxc790-uxadf8uxb798uxd504-boxplot}{%
+\subsubsection{상자 그래프
+(Boxplot)}\label{uxc0c1uxc790-uxadf8uxb798uxd504-boxplot}}
+
+\begin{itemize}
+\tightlist
+\item
+  상자그림(상자도표) 중심과 퍼짐의 요약을 얻을 수 있음 (다섯 수치 요약)
+\item
+  자료의 중심점 위치 확인 및 분포 대칭성 판단
+\item
+  자료의 중심위치 확인
+\item
+  산포의 정도 및 극단점 유무 판단 boxplot() : 상자 그래프 작성
+\item
+  옵션
+\item
+  \texttt{x} : 상자 그래프를 작성할 데이터
+\item
+  \texttt{notch} : 중앙값의 신뢰구간 (기본값 : None)
+\item
+  \texttt{vert} : 수직방향의 그래프 (기본값 : None)
+\item
+  \texttt{whis} : 안쪽 울타리 값 (기본값 : 1.5)
+\item
+  \texttt{labels} : 항목의 이름을 리스트로 입력 (기본값 : None)
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{meanline}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{whis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{showmeans}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{임대가}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} 상자 도표}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{]}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{whis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                    \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{용적률}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{임대가}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{uxd788uxc2a4uxd1a0uxadf8uxb7a8-histogram}{%
+\subsubsection{히스토그램
+(Histogram)}\label{uxd788uxc2a4uxd1a0uxadf8uxb7a8-histogram}}
+
+\begin{itemize}
+\tightlist
+\item
+  자료의 중심위치 및 분포상태, 치우침의 정도 산포의 정도 등을 파악
+\item
+  집단화된 도수분포표를 이용하여 작성
+\item
+  막대도표와 다르게 막대들이 계급경계에서 서로 연결됨 hist() :
+  히스토그램 작성
+\item
+  옵션
+\item
+  \texttt{x} : 히스토그램을 작성할 데이터
+\item
+  \texttt{bins} : 계급의 수 또는 계급의 구간 (기본값 : None)
+\item
+  \texttt{range} : x축의 최소 및 최대 설정 (기본값 : None)
+\item
+  \texttt{density} : y축 값을 빈도 또는 밀도로 작성할지 여부 (기본값 :
+  None)
+\item
+  \texttt{cumulative} : 누적값 도표 작성여부 (기본값 : None)
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} 히스토그램}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} 출처 : https://matplotlib.org/3.1.0/api/\PYZus{}as\PYZus{}gen/matplotlib.pyplot.plot.html}
+         
+         \PY{n}{marker} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	point marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	pixel marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	circle marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{v}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	triangle\PYZus{}down marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZca{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	triangle\PYZus{}up marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	triangle\PYZus{}left marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	triangle\PYZus{}right marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	tri\PYZus{}down marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	tri\PYZus{}up marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{3}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	tri\PYZus{}left marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{4}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	tri\PYZus{}right marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	square marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{p}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	pentagon marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	star marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{h}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	hexagon1 marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{H}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	hexagon2 marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{+}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	plus marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	x marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	diamond marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	thin\PYZus{}diamond marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{|}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	vline marker}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	hline marker}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{n}{lines} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	solid line style}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	dashed line style}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZhy{}.}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	dash\PYZhy{}dot line style}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{	dotted line style}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{marker} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{i}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{:} \PY{n}{i}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{marker}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{marker}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{marker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{\PYZcb{}}
+         \PY{n}{lines} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{i}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{:} \PY{n}{i}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{style}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{lines}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{style}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{marker}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} \{"'.'": 'point marker',
+          "','": 'pixel marker',
+          "'o'": 'circle marker',
+          "'v'": 'triangle\_down marker',
+          "'\^{}'": 'triangle\_up marker',
+          "'<'": 'triangle\_left marker',
+          "'>'": 'triangle\_right marker',
+          "'1'": 'tri\_down marker',
+          "'2'": 'tri\_up marker',
+          "'3'": 'tri\_left marker',
+          "'4'": 'tri\_right marker',
+          "'s'": 'square marker',
+          "'p'": 'pentagon marker',
+          "'*'": 'star marker',
+          "'h'": 'hexagon1 marker',
+          "'H'": 'hexagon2 marker',
+          "'+'": 'plus marker',
+          "'x'": 'x marker',
+          "'D'": 'diamond marker',
+          "'d'": 'thin\_diamond marker',
+          "'|'": 'vline marker',
+          "'\_'": 'hline marker'\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{lines}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} \{"'-'": 'solid line style',
+          "'--'": 'dashed line style',
+          "'-.'": 'dash-dot line style',
+          "':'": 'dotted line style'\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{m\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} len(marker) == 22 ; True}
+         \PY{k}{for} \PY{n}{ix}\PY{p}{,} \PY{p}{(}\PY{n}{character}\PY{p}{,} \PY{n}{description}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{marker}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{m\PYZus{}data}\PY{p}{[}\PY{n}{ix} \PY{o}{\PYZpc{}} \PY{l+m+mi}{11}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0} \PY{o}{+} \PY{p}{(}\PY{n}{ix} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{11}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{character}
+             \PY{n}{m\PYZus{}data}\PY{p}{[}\PY{n}{ix} \PY{o}{\PYZpc{}} \PY{l+m+mi}{11}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{p}{(}\PY{n}{ix} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{11}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{description}
+         
+         \PY{n}{l\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} len(lines) == 4 ; True}
+         \PY{k}{for} \PY{n}{ix}\PY{p}{,} \PY{p}{(}\PY{n}{character}\PY{p}{,} \PY{n}{description}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lines}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{l\PYZus{}data}\PY{p}{[}\PY{n}{ix} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0} \PY{o}{+} \PY{p}{(}\PY{n}{ix} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{character}
+             \PY{n}{l\PYZus{}data}\PY{p}{[}\PY{n}{ix} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{+} \PY{p}{(}\PY{n}{ix} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{description}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{m\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} [["'.'", 'point marker', "'s'", 'square marker'],
+          ["','", 'pixel marker', "'p'", 'pentagon marker'],
+          ["'o'", 'circle marker', "'*'", 'star marker'],
+          ["'v'", 'triangle\_down marker', "'h'", 'hexagon1 marker'],
+          ["'\^{}'", 'triangle\_up marker', "'H'", 'hexagon2 marker'],
+          ["'<'", 'triangle\_left marker', "'+'", 'plus marker'],
+          ["'>'", 'triangle\_right marker', "'x'", 'x marker'],
+          ["'1'", 'tri\_down marker', "'D'", 'diamond marker'],
+          ["'2'", 'tri\_up marker', "'d'", 'thin\_diamond marker'],
+          ["'3'", 'tri\_left marker', "'|'", 'vline marker'],
+          ["'4'", 'tri\_right marker', "'\_'", 'hline marker']]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{l\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} [["'-'", 'solid line style', "'-.'", 'dash-dot line style'],
+          ["'--'", 'dashed line style', "':'", 'dotted line style']]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{get plot parameter table}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{headings} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{character}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{2}
+         
+         \PY{n}{fields} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         
+         \PY{n}{align} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{table}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{m\PYZus{}data}\PY{p}{,} \PY{n}{fields}\PY{p}{,} \PY{n}{headings}\PY{p}{,} \PY{n}{align}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         \PY{n}{table}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{l\PYZus{}data}\PY{p}{,} \PY{n}{fields}\PY{p}{,} \PY{n}{headings}\PY{p}{,} \PY{n}{align}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+get plot parameter table
+
+| character |      description      | character |     description     |
+| :-------- | :-------------------: | :-------- | :-----------------: |
+| '.'       |     point marker      | 's'       |    square marker    |
+| ','       |     pixel marker      | 'p'       |   pentagon marker   |
+| 'o'       |     circle marker     | '*'       |     star marker     |
+| 'v'       | triangle\_down marker  | 'h'       |   hexagon1 marker   |
+| '\^{}'       |  triangle\_up marker   | 'H'       |   hexagon2 marker   |
+| '<'       | triangle\_left marker  | '+'       |     plus marker     |
+| '>'       | triangle\_right marker | 'x'       |      x marker       |
+| '1'       |    tri\_down marker    | 'D'       |   diamond marker    |
+| '2'       |     tri\_up marker     | 'd'       | thin\_diamond marker |
+| '3'       |    tri\_left marker    | '|'       |    vline marker     |
+| '4'       |   tri\_right marker    | '\_'       |    hline marker     |
+
+| character |    description    | character |     description     |
+| :-------- | :---------------: | :-------- | :-----------------: |
+| '-'       | solid line style  | '-.'      | dash-dot line style |
+| '--'      | dashed line style | ':'       |  dotted line style  |
+
+    \end{Verbatim}
+
+    산점도 (Scatter plot)
+
+\begin{verbatim}
+<ul>
+        <li> 두 변수 사이의 관계를 파악하고자 할 때 사용
+            <pre><code>plot() : 산점도 작성</pre></code>
+        <li> # 왜 Scatter 명령어는 강의에 없는지?
+        <li> 옵션
+            <ul>
+                <li> <code>x</code> : 산점도 x축 데이터
+                <li> <code>y</code> : 산점도 ㅛ축 데이터
+                <li> <code>color</code> : 색
+                <li> <code>marker</code> : 점 모양
+                <li> <code>linestyle</code> : 선 모양
+                <li> 색과 점모양, 선모양을 문자열 형식으로 지정 가능
+                    <ul>
+                        <li> 'b' : blue marker with default shape
+                        <li> 'ro' : red circles
+                        <li> 'g-' : green solid line
+                        <li> '--' : dashed line with default color
+                        <li> 'k^' : black triangle_up markers connected by a dotted line
+                    </ul>
+\end{verbatim}
+
+점모양
+
+\begin{longtable}[]{@{}lclc@{}}
+\toprule
+character & description & character & description\tabularnewline
+\midrule
+\endhead
+`.' & point marker & `s' & square marker\tabularnewline
+`,' & pixel marker & `p' & pentagon marker\tabularnewline
+`o' & circle marker & `*' & star marker\tabularnewline
+`v' & triangle\_down marker & `h' & hexagon1 marker\tabularnewline
+`\^{}' & triangle\_up marker & `H' & hexagon2 marker\tabularnewline
+`\textless{}' & triangle\_left marker & `+' & plus marker\tabularnewline
+`\textgreater{}' & triangle\_right marker & `x' & x
+marker\tabularnewline
+`1' & tri\_down marker & `D' & diamond marker\tabularnewline
+`2' & tri\_up marker & `d' & thin\_diamond marker\tabularnewline
+`3' & tri\_left marker & `\textbar{}' & vline marker\tabularnewline
+`4' & tri\_right marker & `\_' & hline marker\tabularnewline
+\bottomrule
+\end{longtable}
+
+선모양
+
+\begin{longtable}[]{@{}lclc@{}}
+\toprule
+character & description & character & description\tabularnewline
+\midrule
+\endhead
+`-' & solid line style & `-.' & dash-dot line style\tabularnewline
+`--' & dashed line style & `:' & dotted line style\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} 산점도}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 또는 plt.plot(df.FAR, df.Price, \PYZdq{}go\PYZhy{}\PYZhy{}\PYZdq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} 산점도}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{용적률}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{임대가}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{uxc601uxc5ed-uxbd84uxd560}{%
+\subsubsection{영역 분할}\label{uxc601uxc5ed-uxbd84uxd560}}
+
+\begin{itemize}
+\tightlist
+\item
+  그래프 작성영역을 분할하여 여러 개의 그래프를 작성 subplot() : 현재의
+  그래프 영역을 분할하여 그래프 추가
+\item
+  옵션
+\item
+  \texttt{pos} : 행과 열 분할영역 크기와 그래프를 작성할 색인의 조합
+  정수
+\item
+  행열 인덱스
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} 분할 영역 그래프}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{221}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{222}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{용적률}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{223}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{임대가}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} 분할 영역 그래프}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{223}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{pandas-uxadf8uxb798uxd504}{%
+\subsection{Pandas 그래프}\label{pandas-uxadf8uxb798uxd504}}
+
+\begin{quote}
+\hypertarget{pandas-uxadf8uxb798uxd504-1}{%
+\subsubsection{pandas 그래프}\label{pandas-uxadf8uxb798uxd504-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  데이터 처리와 분석을 위한 파이썬 라이브러리 pandas를 이용하여 그래프를
+  작성
+\item
+  그래프 메서드를 이용하여 작성 DataFrameObject.plot.차트종류()
+  DataFrameObject.plot(kind=``차트종류'')
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} pandas 기본 그래프}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc6eadd8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} 막대 그래프}
+         
+         \PY{n}{AreaTbl}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} AreaTbl.plot(kind=\PYZsq{}bar\PYZsq{})}
+         \PY{c+c1}{\PYZsh{} AreaTbl.plot(kind=\PYZsq{}bar\PYZsq{}, x=\PYZsq{}AreaTbl.index\PYZsq{}, y=\PYZsq{}AreaTbl.values\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdb2fff60>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} 교차표}
+         \PY{n}{crtab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Area}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{Option}\PY{p}{)}
+         \PY{n}{crtab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} Option  기본형  풀옵션형
+         Area             
+         도심권       4     7
+         동남권       2    90
+         동북권      30   110
+         서남권      26    50
+         서북권      38    43
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} 누적 막대 그래프 \PYZhy{} 1}
+         \PY{n}{crtab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc3e08d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{crtab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc7107b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} 원 그래프}
+         \PY{n}{AreaTbl}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc35d438>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} 원 그래프}
+         \PY{n}{AreaTbl}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pie}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{explode}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}5.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc4f4e10>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} 상자 그래프}
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{box}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{whis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{} 왜 whis가 안먹힐까? \PYZgt{}\PYZgt{} IQR의 상수를 바꿔줌}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdb2d8cf8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} 상자 그래프}
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{box}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} 내가 원한 모양. notch를 건드리면 이렇게 바뀜}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc598c18>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} 히스토그램}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc7c3d30>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} density 속성을 True로 설정하면, 각 bin에 속하는 개수를 전체 개수로 나눈 비율, 즉 정규화 한 값을 bar의 높이로 사용하게 된다.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc83f240>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} 히스토그램}
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                  \PY{n}{density}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc8be278>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} read pilot.csv}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/Python\PYZus{}Data/ch02\PYZus{}data/pilot.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                          \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{G}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{엔지니어 수습생}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{파일럿}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}           G   X1  X2  X3   X4  X5   X6
+         0  엔지니어 수습생  121  22  74  223  54  254
+         1  엔지니어 수습생  108  30  80  175  40  300
+         2  엔지니어 수습생  122  49  87  266  41  223
+         3  엔지니어 수습생   77  37  66  178  80  209
+         4  엔지니어 수습생  140  35  71  175  38  261
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} 산점도}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purple}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdb311518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} 산점도}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc3eaf28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} 산점도}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{rainbow}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc697ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} 버블차트}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} 옵션의 s : 크기에 따라 점의 크기를 지정}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc692da0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} 영역 그래프}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc931978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} 선 그래프}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdc9c7ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{seaborn}{%
+\subsection{Seaborn}\label{seaborn}}
+
+\begin{quote}
+\hypertarget{seaborn-1}{%
+\subsubsection{seaborn}\label{seaborn-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Matplotlib을 기반으로 다양한 색상 테마와 통계용 차트 등을 추가한
+  시각화 패키기
+\item
+  기본적인 시각화 기능은 Matplotlib 패키지에 의존
+\item
+  통계 기능은 Statsmodels 패키지에 의존
+\item
+  Seaborn : htp://seaborn.pydata.org/
+\item
+  Seaborn을 import하면 색상 등을 Matplotlib에서 제공하는 기본 스타일이
+  아닌 Seaborn에서 지정한 기본 스타일을 불러옴 set()
+\item
+  색상, 틱, 스타일 등 그래프의 전반적인 스타일을 Seaborn 기본 스타일로
+  지정 set\_style()
+\item
+  틱 스타일만 변경(darkgrid, whitegrid, dark, white, ticks)
+  set\_color\_codes()
+\item
+  기본 색상을 가리키는 문자열을 변경
+\item
+  set : http://seaborn.pydata.org/generated/seaborn.set.html
+\item
+  set\_style :
+  http://seaborn.pydata.org/generated/seaborn.set\_style.html
+\item
+  set\_color\_codes :
+  http://seaborn.pydata.org/generated/seaborn.set\_color\_codes.html
+\item
+  color palettes :
+  http://seaborn.pydata.org/tutorial/color\_palettes.html
+\item
+  참고 공부 자료
+\item
+  https://namyoungkim.github.io/seaborn/visualization/2017/10/07/visualization\_2/
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}color\PYZus{}codes}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{family} \PY{o}{=} \PY{n}{font\PYZus{}name}\PY{p}{)} \PY{c+c1}{\PYZsh{} 한글 글꼴}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{unicode\PYZus{}minus}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} 축 \PYZhy{}표기였나?}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Seaborn version :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sns}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 새롭게 설치한 버전}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Seaborn version : 0.9.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{current\PYZus{}palette} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} 현재 색상 파렛트}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{palplot}\PY{p}{(}\PY{n}{current\PYZus{}palette}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{palplot}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{palplot}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{dark\PYZus{}palette}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{muted purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{input}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xkcd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/Python\PYZus{}Data/ch02\PYZus{}data/APTData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                         \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}       id Area UseDistrict Option     FAR       Price
+         0  apt01  도심권  제2종 일반주거지역   풀옵션형  132.72  515.051949
+         1  apt02  도심권  제2종 일반주거지역   풀옵션형  184.99  499.500499
+         2  apt03  도심권        상업지역    기본형  308.81  364.319535
+         3  apt04  도심권        상업지역   풀옵션형  493.08  410.945530
+         4  apt05  도심권       준주거지역    기본형  349.65  616.975986
+\end{Verbatim}
+            
+    \begin{quote}
+\hypertarget{bar-chart}{%
+\subsubsection{Bar Chart}\label{bar-chart}}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} 막대그래프}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{AreaTbl}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{AreaTbl}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{지역}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+동북권    140
+동남권     92
+서북권     81
+서남권     76
+도심권     11
+Name: Area, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Option}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdcb767b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{boxplot}{%
+\subsubsection{Boxplot}\label{boxplot}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{orient} : 상자 그래프 방향 (``h'' : 수평, ``v'' : 수직)
+\item
+  \texttt{fliersize} : Outlier 크기
+\item
+  \texttt{x,\ y} : 집단변수와 상자그래프 값 변수
+\item
+  \texttt{hue} : 계열 변수
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} boxplot}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fliersize}\PY{o}{=}\PY{l+m+mf}{7.5}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{whis}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdcc0c128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Option}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdcc5b0b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{distogram-kde}{%
+\subsubsection{Distogram \& KDE}\label{distogram-kde}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{hist} : 히스토그램 작성여부
+\item
+  \texttt{kde} : 커널 밀도곡선 작성여부
+\item
+  \texttt{rug} : x축에 rug 추가
+\item
+  \texttt{vertical} : 수직방향 또는 수평방향
+\item
+  DepreationWarning을 어떻게 해결할까? \textgreater{}\textgreater{}
+  version 문제!
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{hist}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{kde}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{rug}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                      \PY{n}{vertical}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{norm\PYZus{}hist}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdcd66b38>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{rug}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{rug\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                            \PY{n}{kde\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lw}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KDE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                            \PY{n}{hist\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{histtype}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{step}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linewidth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbdfdcf6d8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{scatter-plot}{%
+\subsubsection{Scatter plot}\label{scatter-plot}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{kind} : 산점도(``scatter'') 또는 선도표(``line'')
+\item
+  \texttt{hue} : 계열(집단)변수
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{relplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FAR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scatter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} version == 0.8.0이라 다음과 같은 에러가 발생한다. 업그레이드해주자.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-82-f2d77ba43619> in <module>()
+    ----> 1 sns.relplot(x="Price", y="FAR", data=df, kind="scatter")
+    
+
+        AttributeError: module 'seaborn' has no attribute 'relplot'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{relplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FAR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scatter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} <seaborn.axisgrid.FacetGrid at 0x1bbdcd66780>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{relplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FAR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scatter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} <seaborn.axisgrid.FacetGrid at 0x1bbdcac1390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{uxc0b0uxc810uxb3c4uxc640-uxd68cuxadc0uxc9c1uxc120}{%
+\subsubsection{산점도와
+회귀직선}\label{uxc0b0uxc810uxb3c4uxc640-uxd68cuxadc0uxc9c1uxc120}}
+
+\begin{itemize}
+\tightlist
+\item
+  산점도와 함께 추정된 회귀직선과 신뢰구간을 추가
+\item
+  \texttt{hue} : 계열(집단) 변수
+\item
+  \texttt{x\_jitter,\ y\_jitter} : 중복 점 흩어 뿌리기
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} read pilot.csv}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/Python\PYZus{}Data/ch02\PYZus{}data/pilot.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                          \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{G}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{엔지니어 수습생}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{파일럿}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:}           G   X1  X2  X3   X4  X5   X6
+         0  엔지니어 수습생  121  22  74  223  54  254
+         1  엔지니어 수습생  108  30  80  175  40  300
+         2  엔지니어 수습생  122  49  87  266  41  223
+         3  엔지니어 수습생   77  37  66  178  80  209
+         4  엔지니어 수습생  140  35  71  175  38  261
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} <seaborn.axisgrid.FacetGrid at 0x1bbdcab3cc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_76_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{G}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{x\PYZus{}jitter}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{y\PYZus{}jitter}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} <seaborn.axisgrid.FacetGrid at 0x1bbdfe585f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{pairplot}{%
+\subsubsection{Pairplot}\label{pairplot}}
+
+\begin{itemize}
+\tightlist
+\item
+  산점도 행렬을 출력
+\item
+  대각성분은 각 변수의 히스토그램(커널밀도곡선)
+\item
+  \texttt{hue} : 계열(집단)변수
+\item
+  \texttt{kind} : 산점도 종류(산점도 : ``scatter'', 회귀직선 추가 :
+  ``reg'')
+\item
+  \texttt{diag\_kind} : 대각성분 종류(자동 : ``auto'', 히스토그램 :
+  ``hist'', 커널밀도곡선 : ``kde'')
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{G}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{diag\PYZus{}kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <seaborn.axisgrid.PairGrid at 0x1bbdfe61320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\hypertarget{jointplot}{%
+\subsubsection{jointplot}\label{jointplot}}
+
+\begin{itemize}
+\tightlist
+\item
+  산점도와 각 축 변수의 히스토그램 및 커널밀도곡선 작성
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{jointplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} <seaborn.axisgrid.JointGrid at 0x1bbe0f23860>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{plotly}{%
+\subsection{Plotly}\label{plotly}}
+
+\begin{quote}
+\hypertarget{plotly-1}{%
+\subsubsection{plotly}\label{plotly-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  퀘벡주 몬트리올에 본사가 있는 온라인 분석 및 데이터 시각화 도구
+\item
+  plotly는 python과 Django 프레임워크를 사용하여 제작되었으며 프론트
+  엔드는 JavaScript와 시각화 라이브러리 D3.js, HTML 및 CSS를 사용
+\item
+  파일은 Amazon S3에서 호스팅
+\item
+  온라인 게시를 위해서는 다음문서를 참고
+\item
+  http://plot.ly/python/getting-started/\#initialization-for-online-plotting
+\item
+  plotly offline을 사용하면 그래프를 오프라인으로 생성하고 로컬로
+  저장(HTML)할 수 있으며 이렇게 하면 온라인에서 필요한 인증작업이 필요
+  없음 import plotly \# 임포트 plotly.offline.plot \# 이 명령어로
+  실행시키는게 핵심\\
+\item
+  공부 자료
+\item
+  https://plot.ly/python/ipython-notebook-tutorial/
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+         \PY{k+kn}{import} \PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{ply}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/Python\PYZus{}Data/ch02\PYZus{}data/APTData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:}       id Area UseDistrict Option     FAR       Price
+         0  apt01  도심권  제2종 일반주거지역   풀옵션형  132.72  515.051949
+         1  apt02  도심권  제2종 일반주거지역   풀옵션형  184.99  499.500499
+         2  apt03  도심권        상업지역    기본형  308.81  364.319535
+         3  apt04  도심권        상업지역   풀옵션형  493.08  410.945530
+         4  apt05  도심권       준주거지역    기본형  349.65  616.975986
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} 원그래프}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Pie}\PY{p}{(}\PY{n}{text}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{opacity}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{원그래프}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 layout}
+         \PY{n}{figure} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 작성}
+         \PY{n}{ply}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figure}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PYZbs{}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./data/Python\PYZus{}Data/ch02\PYZus{}data/piechart.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} 'file://C:\textbackslash{}\textbackslash{}workspace\textbackslash{}\textbackslash{}KSA\textbackslash{}\textbackslash{}data\textbackslash{}\textbackslash{}Python\_Data\textbackslash{}\textbackslash{}ch02\_data\textbackslash{}\textbackslash{}piechart.html'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} 막대그래프}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Bar}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{막대그래프}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 layout}
+         \PY{n}{figure} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 작성}
+         \PY{n}{ply}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figure}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PYZbs{}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./data/Python\PYZus{}Data/ch02\PYZus{}data/barchart.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} 'file://C:\textbackslash{}\textbackslash{}workspace\textbackslash{}\textbackslash{}KSA\textbackslash{}\textbackslash{}data\textbackslash{}\textbackslash{}Python\_Data\textbackslash{}\textbackslash{}ch02\_data\textbackslash{}\textbackslash{}barchart.html'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} 상자그래프}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Box}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Area}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{boxmean}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fillcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{jitter}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{notched}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{상자그래프}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 layout}
+         \PY{n}{figure} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 작성}
+         \PY{n}{ply}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figure}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PYZbs{}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./data/Python\PYZus{}Data/ch02\PYZus{}data/boxplot.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} 'file://C:\textbackslash{}\textbackslash{}workspace\textbackslash{}\textbackslash{}KSA\textbackslash{}\textbackslash{}data\textbackslash{}\textbackslash{}Python\_Data\textbackslash{}\textbackslash{}ch02\_data\textbackslash{}\textbackslash{}boxplot.html'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} 히스토그램}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Histogram}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{nbinsx}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{opacity}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{개}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{히스토그램}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 layout}
+         \PY{n}{figure} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 작성}
+         \PY{n}{ply}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figure}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PYZbs{}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./data/Python\PYZus{}Data/ch02\PYZus{}data/histogram.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 'file://C:\textbackslash{}\textbackslash{}workspace\textbackslash{}\textbackslash{}KSA\textbackslash{}\textbackslash{}data\textbackslash{}\textbackslash{}Python\_Data\textbackslash{}\textbackslash{}ch02\_data\textbackslash{}\textbackslash{}histogram.html'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{} 산점도}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines+markers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{산점도}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 layout}
+         \PY{n}{figure} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 작성}
+         \PY{n}{ply}\PY{o}{.}\PY{n}{offline}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figure}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PYZbs{}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./data/Python\PYZus{}Data/ch02\PYZus{}data/scatter.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} 'file://C:\textbackslash{}\textbackslash{}workspace\textbackslash{}\textbackslash{}KSA\textbackslash{}\textbackslash{}data\textbackslash{}\textbackslash{}Python\_Data\textbackslash{}\textbackslash{}ch02\_data\textbackslash{}\textbackslash{}scatter.html'
+\end{Verbatim}
+            
+    \hypertarget{bokeh}{%
+\subsection{Bokeh}\label{bokeh}}
+
+\begin{quote}
+\hypertarget{bokeh-1}{%
+\subsubsection{Bokeh}\label{bokeh-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  웹 브라우저에서 시각화에 효과적인 파이썬 인터랙티브 시각화 라이브러리
+\item
+  plot을 html 파일로 export한 다음 웹 브라우저를 통해 확인할 수 있다.
+\item
+  사용방식이 Matplotlib이랑 유사하다.
+\item
+  IPython Notebook이랑 호환이 잘 된다.
+\item
+  http://bokeh.pydata.org/en/latest/index.html
+\end{itemize}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{,} \PY{n}{output\PYZus{}notebook}\PY{p}{,} \PY{n}{show}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} Output to static HTML file}
+         \PY{c+c1}{\PYZsh{} Output\PYZus{}file(\PYZdq{}lines.html\PYZdq{})}
+         
+         \PY{c+c1}{\PYZsh{} output to notebook}
+         \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create a new plot with a titie and axis labels}
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{막대그래프}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{p}\PY{o}{.}\PY{n}{hbar}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{n}{AreaTbl}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show the results}
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} output to notebook}
+         \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create a new plot with a title and axis labels}
+         \PY{n}{p} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{산점도}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add a line renderer with legend and line thickness}
+         \PY{n}{p}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{FAR}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Price}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{square}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show the results}
+         \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    \hypertarget{uxadf8-uxc774uxc678uxc758-uxc2dcuxac01uxd654-uxb77cuxc774uxbe0cuxb7ecuxb9ac}{%
+\subsection{그 이외의 시각화
+라이브러리}\label{uxadf8-uxc774uxc678uxc758-uxc2dcuxac01uxd654-uxb77cuxc774uxbe0cuxb7ecuxb9ac}}
+
+\begin{quote}
+\hypertarget{folium}{%
+\subsubsection{Folium}\label{folium}}
+
+\begin{itemize}
+\tightlist
+\item
+  지리적 데이터를 시각화하는데 특화된 라이브러리이, leaflet.js 기반
+\item
+  지도 데이터를 사용하는데 선행되어야 하는 작업이 적고, 설치와 사용이
+  간단
+\item
+  https://github.com/python-visualization/folium
+\end{itemize}
+\end{quote}
+
+\begin{quote}
+\hypertarget{plotnine}{%
+\subsubsection{Plotnine}\label{plotnine}}
+
+\begin{itemize}
+\tightlist
+\item
+  plotnine은 R의 ggplot2에 기반해 그래프를 그려주는 라이브러리이다.
+\item
+  https://plotnine.readthedocs.io/en/stable
+\end{itemize}
+\end{quote}
+
+    \hypertarget{chapter-5.-uxc694uxc57d}{%
+\section{Chapter 5. 요약}\label{chapter-5.-uxc694uxc57d}}
+
+\begin{itemize}
+\tightlist
+\item
+  Python을 이용한 빅데이터 분석 및 전처리 기법을 다루고 있으며, 이를
+  위해 pandas 및 numpy 등을 소개함
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Python을 이용한 빅데이터 전처리 기법에 대한 기본지식 확보
+
+    \begin{itemize}
+    \tightlist
+    \item
+      pandas를 통한 전처리 기법
+    \item
+      numpy를 통한 수치처리 기법
+    \end{itemize}
+  \end{itemize}
+\item
+  또한 다양한 시각화 라이브러리들인 matplotlib, seaborn, plotly, vega,
+  bokeh 등을 소개하고 이를 이용한 시각화를 실습함
+
+  \begin{itemize}
+  \tightlist
+  \item
+    시각화 기본 지식 확보
+
+    \begin{itemize}
+    \tightlist
+    \item
+      matplotlib 및 seaborn을 통한 시각화
+    \item
+      plotly 및 bokeh를 이용한 시각화
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
