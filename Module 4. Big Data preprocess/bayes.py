@@ -40,6 +40,8 @@ class BayesianFilter:
 
     def score(self, words, category):
         """단어 리스트 점수 매기기 --- (%4)"""
+        # log로 sum을 한다는 것은 확률을 서로 곱한다는 의미
+        # 즉, 각각의 변수들(형태소 등장 확률)이 독립적이라고 가정
         score = math.log(self.category_prob(category))
         for word in words:
             score += math.log(self.word_prob(word, category))
@@ -75,5 +77,13 @@ class BayesianFilter:
         d = sum(self.word_dict[category].values()) + len(self.words)
         return n / d
 
-class BayesianClassifier(BayesianFilter):
-    pass
+class BayesianClassifier():
+
+    def __init__(self):
+        pass
+
+    def fit(self, texts, categories):
+        ads
+
+    def predict(self, texts):
+        dasf
