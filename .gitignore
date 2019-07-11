@@ -3,3 +3,4 @@ Module 3. Machine Learning with Python/titanic
 Module 2. Python for Data Analysis/.ipynb_checkpoints
 Module 3. Machine Learning with Python/.ipynb_checkpoints
 perform_eval/data
+*.pkl
